@@ -393,7 +393,7 @@ def facturar_todo(request):
     else:
       montototal=facturarPrepago(a)
       factura=Factura(cliente=a, monto=montototal[0], mes=mes1, anio=anio1)
-      if (montototal <>0):
+      if (montototal[0] <>0):
 	factura.save()
 	lfacturas.append(factura)
       
