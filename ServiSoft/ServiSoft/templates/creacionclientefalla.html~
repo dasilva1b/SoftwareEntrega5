@@ -1,0 +1,22 @@
+<html>
+
+<title> Creacion de cliente falla: ServiSoft </title>
+
+<body>
+
+<h1 style="color: #088A85"> Creacion de cliente falla: ServiSoft </h1>
+
+<hr> </hr>
+<p> El cliente que intento agregar ya existe. </p>
+<a href="/inicioadmin/"> Volver </a>
+
+
+
+
+</body>
+<hr></hr>
+
+
+
+
+</html>

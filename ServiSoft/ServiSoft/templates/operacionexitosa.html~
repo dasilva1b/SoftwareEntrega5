@@ -1,0 +1,25 @@
+<html>
+
+<title> Operacion exitosa: ServiSoft </title>
+
+<body>
+
+<h1 style="color: #088A85"> Operacion exitosa: ServiSoft </h1>
+
+<hr> </hr>
+<p>  La operacion se ha realizado satisfactoriamente </p>
+  {% for a in prods %}
+    <li> {{ a }} <li>
+  {% endfor %}
+<a href="/inicioadmin/"> Volver </a>
+
+
+
+
+</body>
+<hr></hr>
+
+
+
+
+</html>

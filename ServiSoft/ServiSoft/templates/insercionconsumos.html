@@ -1,0 +1,43 @@
+<html>
+
+<title> Insertar Consumo: ServiSoft </title>
+
+<body>
+
+<h1 style="color: #088A85"> Insertar Consumo: ServiSoft </h1>
+
+<hr> </hr>
+<h3> <li> Insertar Consumo</li> </h3>
+<form action="/inserciondeconsumo/" method="post">
+{% csrf_token %}
+    <p> ID del producto <input type="text" name="idproducto"></p>
+    <p> Mes 
+      <select name="mes">
+	<option value="1"> Enero </option>
+	<option value="2"> Febrero </option>
+	<option value="3"> Marzo </option>
+	<option value="4"> Abril </option>
+	<option value="5"> Mayo </option>
+	<option value="6"> Junio </option>
+	<option value="7"> Julio </option>
+	<option value="8"> Agosto </option>
+	<option value="9"> Septiembre</option>
+	<option value="10"> Octubre </option>
+	<option value="11"> Noviembre </option>
+	<option value="12"> Diciembre </option>
+      </select> </p>
+    <p> Anio <input type="number" name="anio"> </p>
+    <p> Dia <input type="number" name="dia"></p>
+    <p> Hora <input type="text" name="hora"> </p>
+    <p> Costo <input type="number" name="costo"> </p>
+    <p> Tipo <input type="text" name="tipo"> </p>
+    <p> <input type="submit" value="Insertar"></p>
+</form>
+
+</br>
+
+
+
+</body>
+
+  

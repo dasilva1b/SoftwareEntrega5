@@ -1,0 +1,47 @@
+<html>
+
+<title> Insertar Planes: ServiSoft </title>
+
+<body>
+
+<h1 style="color: #088A85"> Insertar Planes: ServiSoft </h1>
+
+<hr> </hr>
+<h3> <li> Insertar plan</li> </h3>
+<form action="/insercionplanes/" method="post">
+{% csrf_token %}
+    <p> Nombre <input type="text" name="nombre"></p>
+    <p> Descripcion <input type="text" name="descripcion"></p>
+    <p> Tipo de plan 
+	<select name="tipo_plan">
+	  <option value="0"> Postpago con renta</option>
+	  <option value="1"> Postpago sin renta </option>
+	  <option value="2"> Prepago </option>
+	</select> </p>
+    <p> Renta <input type="number" name="renta"> </p>
+    <h4> Que incluye el plan: </h2>
+    <p> --Lo que se incluye <input type="text" name="tipo"> </p>
+    <p> --Cantidad que se incluye <input type="text" name="cantidad"> </p>
+    </br>
+    <p> --Lo que se incluye <input type="text" name="tipo2"> </p>
+    <p> --Cantidad que se incluye <input type="text" name="cantidad2"> </p>
+    </br>
+    <p> --Lo que se incluye <input type="text" name="tipo3"> </p>
+    <p> --Cantidad que se incluye <input type="text" name="cantidad3"> </p>
+
+    <p> --Lo que se incluye <input type="text" name="tipo4"> </p>
+    <p> --Cantidad que se incluye <input type="text" name="cantidad4"> </p>
+
+    <p> --Lo que se incluye <input type="text" name="tipo5"> </p>
+    <p> --Cantidad que se incluye <input type="text" name="cantidad5"> </p>
+
+    <p> --Lo que se incluye <input type="text" name="tipo6"> </p>
+    <p> --Cantidad que se incluye <input type="text" name="cantidad6"> </p>
+    <p> <input type="submit" value="Insertar"></p>
+</form>
+
+</br>
+
+
+
+</body>

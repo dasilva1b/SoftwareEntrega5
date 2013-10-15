@@ -1,0 +1,89 @@
+<html>
+
+<title> Gestion facturas: ServiSoft </title>
+
+<body>
+
+<h1 style="color: #088A85"> Gestion facturas: ServiSoft </h1>
+
+<hr> </hr>
+<h3> <li> Facturar cliente en particular </li> </h3>
+<form action="/facturarcliente/" method="post">
+{% csrf_token %}
+    <p> Cedula/rif <input type="text" name="idcliente"></p>
+    <p> Mes 
+      <select name="mes">
+	<option value="1"> Enero </option>
+	<option value="2"> Febrero </option>
+	<option value="3"> Marzo </option>
+	<option value="4"> Abril </option>
+	<option value="5"> Mayo </option>
+	<option value="6"> Junio </option>
+	<option value="7"> Julio </option>
+	<option value="8"> Agosto </option>
+	<option value="9"> Septiembre</option>
+	<option value="10"> Octubre </option>
+	<option value="11"> Noviembre </option>
+	<option value="12"> Diciembre </option>
+      </select> </p>
+    <p> Anio <input type="text" name="anio"> </p>
+    <p> Tipo de facturacion
+	<select name="tipofact">
+	<option value="post"> Productos postpago </option>
+	<option value="pre"> Productos prepago </option>
+	</select> </p>
+	
+    <p> <input type="submit" value="Facturar"></p>
+</form>
+
+<h3> <li> Facturar cliente en particular </li> </h3>
+<form action="/facturartodo/" method="post">
+{% csrf_token %}
+    <p> Mes 
+      <select name="mes">
+	<option value="1"> Enero </option>
+	<option value="2"> Febrero </option>
+	<option value="3"> Marzo </option>
+	<option value="4"> Abril </option>
+	<option value="5"> Mayo </option>
+	<option value="6"> Junio </option>
+	<option value="7"> Julio </option>
+	<option value="8"> Agosto </option>
+	<option value="9"> Septiembre</option>
+	<option value="10"> Octubre </option>
+	<option value="11"> Noviembre </option>
+	<option value="12"> Diciembre </option>
+      </select> </p>
+    <p> Anio <input type="text" name="anio"> </p>
+    <p> Tipo de facturacion
+	<select name="tipofact">
+	<option value="post"> Productos postpago </option>
+	<option value="pre"> Productos prepago </option>
+	</select> </p>
+	
+    <p> <input type="submit" value="Facturar"></p>
+</form>
+
+</br>
+
+<!--<h3> <li> Modificacion de cliente </li> </h3>
+<p> Introduzca el ID del cliente que desea modificar, seleccione el campo a modificar 
+    e introduzca el nuevo valor. </p>
+<form action="/modificacioncliente/" method="post">
+{% csrf_token %}
+    <p> Identificador (cedula/rif) <input type="text" name="identificador"> </p>
+    <p> Campo a modificar 
+	<select name="campo_modificar">
+	  <option value="direccion"> Direccion</option>
+	  <option value="nombre"> Nombre </option>
+	</select>
+      </p>
+    <p> Nuevo valor <input type="text" name="modificado"> </p>
+    <p> <input type="submit" value="Modificar"></p>
+</form>
+
+<h3> <li> <a href="/listarclientes/"> Listar todos los clientes </a> </li> <h3>-->
+
+
+</body>
+<hr></hr>

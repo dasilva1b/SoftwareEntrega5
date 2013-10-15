@@ -1,0 +1,36 @@
+<html>
+
+<title> Exito Factura: ServiSoft </title>
+
+<body>
+
+<h1 style="color: #088A85"> Exito Factura: ServiSoft </h1>
+
+<hr> </hr>
+<p> Se ha agregado exitosamente al sistema la siguiente factura: </p>
+
+    <li> >Factura del mes: {{ factura.mes }} y anio {{ factura.anio }}: </li>
+    <li> >Cliente: {{ factura.cliente }} </li>
+    <li> >Productos Facturados:
+    {% for a in lprods %}
+      {% for b in a %}
+	<ol>
+	<li> -{{ b }} </p> </li>
+      {% endfor %}
+    {% endfor %}
+	</ol>
+    </li>
+    <li> >Monto total : {{ factura.monto }} </li>
+
+<a href="/inicioadmin/"> Volver </a>
+
+
+
+
+</body>
+<hr></hr>
+
+
+
+
+</html>

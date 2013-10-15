@@ -1,0 +1,37 @@
+<html>
+
+<title> Insertar Servicios: ServiSoft </title>
+
+<body>
+
+<h1 style="color: #088A85"> Insertar Servicios: ServiSoft </h1>
+
+<hr> </hr>
+<h3> <li> Insertar Servicio</li> </h3>
+<form action="/insercionplanes/" method="post">
+{% csrf_token %}
+    <p> Nombre <input type="text" name="nombre"></p>
+    <p> Costo <input type="number" name="costo"> </p>
+    <p> Incluye algo el servicio: 
+	<select name="incluye">
+	  <option value="0"> No </option>
+	  <option value="1"> Si </option>
+	</select>
+    </p>
+    <h4> Que incluye el servicio: </h4>
+    <p> --Lo que se incluye <input type="text" name="tipo"> </p>
+    <p> --Cantidad que se incluye <input type="text" name="cantidad"> </p>
+    </br>
+    <p> --Lo que se incluye <input type="text" name="tipo2"> </p>
+    <p> --Cantidad que se incluye <input type="text" name="cantidad2"> </p>
+    </br>
+    <p> --Lo que se incluye <input type="text" name="tipo3"> </p>
+    <p> --Cantidad que se incluye <input type="text" name="cantidad3"> </p>
+    <p> <input type="submit" value="Insertar"></p>
+</form>
+
+</br>
+
+
+
+</body>

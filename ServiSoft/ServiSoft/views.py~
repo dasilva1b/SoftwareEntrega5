@@ -1,0 +1,23 @@
+from django.http import HttpResponse
+import datetime
+from django.template import Context
+from django.template.loader import get_template
+from django.shortcuts import render
+from Telefonia.models import Usuario
+
+#View que despliega la pagina de inicio del sistema
+def home(request):
+  now=now = datetime.datetime.now()
+  return render (request,'home.html',{'now':now})
+
+#View que se encarga de verificar,crear la cuenta de usuario y redireccionar
+def creacion_cuenta(request):
+  #Reviso que no hayan dejado campos vacios
+  if (('nombre' in request.POST) & ('clave' in request.POST)):
+    #Reviso que el cliente no exista ya
+    lista_usuarios=Usuario.objects.all()
+    usuario_temporal=Usuario(name=request.POST['nombre'], password=request.POST['clave'], tipo_usuario=request.POST['tipo_usuario'])
+    if (usuario_temporal not in lista_usuarios):
+      usuario_temporal.save()
+      return render (request, 'exitocreacioncuenta.html')
+  

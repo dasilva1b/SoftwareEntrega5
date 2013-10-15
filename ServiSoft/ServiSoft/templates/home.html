@@ -1,0 +1,44 @@
+<html>
+
+<title> Home Page: ServiSoft </title>
+
+<body>
+
+<h1 style="color: #088A85"> Home Page: ServiSoft </h1>
+
+<hr> </hr>
+<h3> <li>Inicio de Sesion </li> </h3>
+<form action="/iniciosesion/" method="post">
+{% csrf_token %}
+    <p> Usuario<input type="text" name="nombre"></p>
+    <p> Clave <input type="password" name="clave"></p>
+    <p> <input type="submit" value="Iniciar"></p>
+</form>
+
+</br>
+<h3> <li>Creacion de cuenta</li> </h3>
+<form action="/creacioncuenta/" method="post">
+{% csrf_token %}
+    <p> Usuario<input type="text" name="nombre"></p>
+    <p> Clave <input type="password" name="clave"></p>
+    <p> <select name="tipo_usuario">
+	  <option> Seleccione -- </option>
+	  <option value="admin"> Administrador </option>
+	  <option value="cliente"> Cliente regular </option>
+	</select>
+    <p> <input type="submit" value="Iniciar"></p>
+</form>
+
+
+
+
+
+</body>
+<hr></hr>
+<footer>
+<p> Accesando el: {{ now }} </p>
+</footer>
+
+
+
+</html>

@@ -1,0 +1,28 @@
+<html>
+
+<title> Listado de clientes: ServiSoft </title>
+
+<body>
+
+<h1 style="color: #088A85"> Listado de clientes: ServiSoft </h1>
+
+<hr> </hr>
+<h3> Clientes de la compañia en el sistema </h3>
+  <ol>
+        {% for cliente in clientes %}
+        <li>{{ cliente }}</li>
+        {% endfor %}
+   </ol>
+
+<a href="/"> Volver </a>
+
+
+
+
+</body>
+<hr></hr>
+
+
+
+
+</html>

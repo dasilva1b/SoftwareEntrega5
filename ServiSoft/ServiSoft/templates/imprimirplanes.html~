@@ -1,0 +1,29 @@
+<html>
+
+<title> Listado de planes: ServiSoft </title>
+
+<body>
+
+<h1 style="color: #088A85"> Listado de planes: ServiSoft </h1>
+
+<hr> </hr>
+<h3> Planes de la compañia en el sistema </h3>
+  <ol>
+        <li>{{ plan }}</li>
+	{% for plan in clientes %}
+	  <li> {{ incluidos }} </li>
+        {% endfor %}
+   </ol>
+
+<a href="/inicioadmin/"> Volver </a>
+
+
+
+
+</body>
+<hr></hr>
+
+
+
+
+</html>

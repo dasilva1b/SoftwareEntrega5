@@ -1,0 +1,28 @@
+<html>
+
+<title> Listado de productos con su saldo: ServiSoft </title>
+
+<body>
+
+<h1 style="color: #088A85"> Listado de productos con su saldo: ServiSoft </h1>
+
+<hr> </hr>
+<li> Producto | Identificador | Saldo </li>
+  <ol> 
+        {% for c in productos %}
+        <li>{{ c.name }} -- {{ c.identificador }} -- {{ c.saldo }}</li>
+        {% endfor %}
+   </ol>
+
+<a href="/inicioadmin/"> Volver </a>
+
+
+
+
+</body>
+<hr></hr>
+
+
+
+
+</html>

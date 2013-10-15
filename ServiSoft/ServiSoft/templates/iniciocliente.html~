@@ -1,0 +1,41 @@
+<html>
+
+<title> Inicio cliente: ServiSoft </title>
+
+<body>
+
+<h1 style="color: #088A85"> Inicio cliente: ServiSoft </h1>
+
+<hr> </hr>
+<p> Bienvenido </p>
+
+<h4> Acciones posibles </h4>
+<ol>
+  <li> Consultar saldo de productos  </li>
+  <form action="/consultarsaldo/" method="post">
+    {% csrf_token %}
+    <p> Cedulra/rifo<input type="text" name="cedrif"></p>
+    <p> <input type="submit" value="Consultar"></p>
+  </form>
+
+  <li> Consultar ultima/s factura/s  </li>
+  <form action="/consultarultfactura/" method="post">
+    {% csrf_token %}
+    <p> Cedula/rif<input type="text" name="cedrif"></p>
+    <p> <input type="submit" value="Consultar"></p>
+  </form>
+</ol>
+
+
+<a href="/"> Volver </a>
+
+
+
+
+</body>
+<hr></hr>
+
+
+
+
+</html>

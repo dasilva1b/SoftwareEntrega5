@@ -1,0 +1,46 @@
+<html>
+
+<title> Gestion clientes: ServiSoft </title>
+
+<body>
+
+<h1 style="color: #088A85"> Gestion clientes: ServiSoft </h1>
+
+<hr> </hr>
+<h3> <li> Creacion de cliente </li> </h3>
+<form action="/creacioncliente/" method="post">
+{% csrf_token %}
+    <p> Nombre <input type="text" name="nombre"></p>
+    <p> Direccion <input type="text" name="direccion"></p>
+    <p> Identificador (cedula/rif) <input type="text" name="identificador"> </p>
+    <p> <input type="submit" value="Crear"></p>
+</form>
+
+</br>
+
+<h3> <li> Modificacion de cliente </li> </h3>
+<p> Introduzca el ID del cliente que desea modificar, seleccione el campo a modificar 
+    e introduzca el nuevo valor. </p>
+<form action="/modificacioncliente/" method="post">
+{% csrf_token %}
+    <p> Identificador (cedula/rif) <input type="text" name="identificador"> </p>
+    <p> Campo a modificar 
+	<select name="campo_modificar">
+	  <option value="direccion"> Direccion</option>
+	  <option value="nombre"> Nombre </option>
+	</select>
+      </p>
+    <p> Nuevo valor <input type="text" name="modificado"> </p>
+    <p> <input type="submit" value="Modificar"></p>
+</form>
+
+<h3> <li> <a href="/listarclientes/"> Listar todos los clientes </a> </li> <h3>
+
+
+</body>
+<hr></hr>
+
+
+
+
+</html>
