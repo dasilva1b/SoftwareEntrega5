@@ -37,6 +37,7 @@ urlpatterns = patterns('',
     url(r'^facturarcliente/$',views.facturar_cliente),
     url(r'^facturartodo/$',views.facturar_todo),
     url(r'^consultarultfactura/$',views.consultar_ultfactura),
+    url(r'^consultarsaldo/$',views.consultar_saldo),
     url(r'^iniciocliente/$',views.inicio_cliente),
     
 )

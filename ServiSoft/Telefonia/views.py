@@ -11,20 +11,26 @@ from auxiliar import facturarPostpago, facturarPrepago
 
 #View que se encarga de verificar,crear la cuenta de usuario y redireccionar
 def creacion_cuenta(request):
-  #Reviso que no hayan dejado campos vacios
-  if (('nombre' in request.POST) & ('clave' in request.POST)):
-    #Reviso que el cliente no exista ya
-    lista_usuarios=Usuario.objects.all()
     nombre=request.POST['nombre']
     clave=request.POST['clave']
     tipo=request.POST['tipo_usuario']
-    usuario_temporal=Usuario(name=nombre, password=clave, tipo_usuario=tipo)
-    if ((usuario_temporal not in lista_usuarios) & (nombre <> '') & (clave <> '')):
-      usuario_temporal.save()
-      return render (request, 'exitocreacioncuenta.html')
+
+    #Reviso que no hayan dejado campos vacios
+    boole= ((len(nombre) <> 0) & (len(clave) <> 0) & (len(tipo) <> 0))
+    if (boole):
+       #Reviso que el cliente no exista ya
+      lista_usuarios=Usuario.objects.filter(name=nombre, password=clave, tipo_usuario=tipo)
+      if (len(lista_usuarios) == 0):
+	#El usuario no existe
+	usuario_temporal=Usuario(name=nombre, password=clave, tipo_usuario=tipo)
+	usuario_temporal.save()
+	return render (request, 'exitocreacioncuenta.html')
+      else:
+	return render (request, 'creacionerronea.html')
     else:
-      return render (request, 'creacionerronea.html')
-    
+      return render (request, 'creacionerroneavacios.html')
+
+	
  
 #Inicia la sesion del usuario si su info es correcta
 def inicio_sesion(request):
@@ -32,6 +38,7 @@ def inicio_sesion(request):
     return render (request, 'inicioerroneo.html')
   nombre=request.POST['nombre']
   clave=request.POST['clave']
+   
   coincidencias=Usuario.objects.filter(name=nombre, password=clave)
   
   #Veo si realmente existe ese usuario con esa clave
@@ -44,60 +51,82 @@ def inicio_sesion(request):
   else:
     return render (request, 'inicioerroneo.html')
     
+    
+    
 #Da acceso a la gestion de clientes
 def gestion_clientes(request):
   return render (request, 'gestionclientes.html')
 
+  
+  
 #Da acceso a la pagina de inicio del administrador
 def inicio_admin(request):
    return render (request, 'inicioadmin.html')
+  
+  
   
 #View que maneja la creacion de un nuevo cliente
 def creacion_cliente(request):
   nombre=request.POST['nombre']
   direccion1=request.POST['direccion']
   identificador1=request.POST['identificador']
-  #Falta verificar campos vacios
   
-  #Verifico si el cliente ya existe
-  lista_clientes=Cliente.objects.filter(name=nombre, identificador=identificador1)
-  if (len(lista_clientes) == 0):
-    #EL cliene no existe
-    cliente=Cliente(name=nombre, direccion=direccion1, identificador=identificador1)
-    cliente.save()
-    return render (request, 'operacionexitosa.html')
+  #Reviso que no hayan dejado campos vacios
+  boole= ((len(nombre) <> 0) & (len(direccion1) <> 0) & (len (str(identificador1)) <> 0))
+  if (boole):
+    #Verifico si el cliente ya existe
+    lista_clientes=Cliente.objects.filter(name=nombre, identificador=identificador1)
+    if (len(lista_clientes) == 0):
+      #EL cliene no existe
+      cliente=Cliente(name=nombre, direccion=direccion1, identificador=identificador1)
+      cliente.save()
+      return render (request, 'operacionexitosa.html')
+    else:
+      return render (request, 'creacionclientefalla.html')
   else:
-    return render (request, 'creacionclientefalla.html')
-
+      return render (request, 'creacionclientefallavacios.html')
+  
+  
+  
 #View que maneja el request de modificar la informacion de un cliente.
 def modificacion_cliente(request):
   identificador1=request.POST['identificador']
   campo=request.POST['campo_modificar']
   nuevo_valor=request.POST['modificado']
   
-  #Revisamos si es un cliente que existe
-  lista_clientes=Cliente.objects.filter(identificador=identificador1)
-  if (len(lista_clientes) == 1):
-    #El cliente existe
-    cliente=Cliente.objects.get(identificador=identificador1)
-    if (campo == 'direccion'):
-      cliente.direccion=nuevo_valor
+  #Revisamos que no hayan campos vacios
+  boole = ((len(str(identificador1)) <> 0) & (len(campo) <> 0) & (len(nuevo_valor) <> 0))
+  if (boole):
+    #Revisamos si es un cliente que existe
+    lista_clientes=Cliente.objects.filter(identificador=identificador1)
+    if (len(lista_clientes) == 1):
+      #El cliente existe
+      cliente=Cliente.objects.get(identificador=identificador1)
+      if (campo == 'direccion'):
+	cliente.direccion=nuevo_valor
+      else:
+	cliente.name=nuevo_valor
+      cliente.save()
+      return render (request, 'operacionexitosa.html')
     else:
-      cliente.name=nuevo_valor
-    cliente.save()
-    return render (request, 'operacionexitosa.html')
+      return render (request, 'modificacionfalla.html')
   else:
     return render (request, 'modificacionfalla.html')
-
+    
+    
 #View que lista los clientes que esten almacenados en sistema
 def listar_clientes(request):
   clientes=Cliente.objects.all()
   return render (request, 'listadoclientes.html', { 'clientes' : clientes })
 
+  
+  
 #View que da acceso a la pagina donde se provee la informacion para insertar un plan.
 def insertar_planes(request):
   return render (request, 'insertarplanes.html')
 
+  
+  
 #View que realmente hace el procesamiento para insertar un plan en el sistema.
 def insercion_planes(request):
   nombre=request.POST['nombre']
@@ -135,13 +164,20 @@ def insercion_planes(request):
   cantidad6=request.POST['cantidad6']
   boole6= ((len(str(cantidad6)) <> 0) & (len(tipo6) <> 0))
   
+  
+  
   #Si los campos no son vacios
   if (boole):
-    #Almaceno las instancias
-    plan1=Plan(name=nombre, descripcion=descripcion1, ilimitado=int(ilimitado1), renta=int(renta1))
-    plan1.save()
-    plantemp=Plan.objects.get(name=nombre)
-    
+    #verificar que no exista
+    lista_planes = Plan.objects.filter(name=nombre)
+    if (len(lista_planes) == 0):
+      #Almaceno las instancias
+      plan1=Plan(name=nombre, descripcion=descripcion1, ilimitado=int(ilimitado1), renta=int(renta1))
+      plan1.save()
+      plantemp=Plan.objects.get(name=nombre)
+    else: 
+      return render (request, 'planexistente.html')
+      
     #Reviso que se haya especificado algun tipo,cantidad de lo que se incluye en el plan
     #y de ser asi, almaceno en el sistema
     if ((boole22) | (boole2) | (boole3) | (boole4) | (boole5) | (boole6)):
@@ -150,20 +186,46 @@ def insercion_planes(request):
 	incl1=Incluido_Plan(plan=plantemp, tipo=tipo1, cantidad=int(cantidad1))
 	incl1.save()
       if (boole2):
-	incl2=Incluido_Plan(plan=plantemp, tipo=tipo2, cantidad=int(cantidad2))
-	incl2.save()
+	# De aca en adelante se verifica que no se agregue mas de una vez lo que incluye el plan
+	lista_incluido = Incluido_Plan.objects.filter(plan=plantemp, tipo=tipo2)
+	if (len(lista_incluido) == 0):
+	  incl2=Incluido_Plan(plan=plantemp, tipo=tipo2, cantidad=int(cantidad2))
+	  incl2.save()
+	else:
+	  plan1.delete()
+	  return render (request, 'incluirplanfalla.html')
       if (boole3):
-	incl3=Incluido_Plan(plan=plantemp, tipo=tipo3, cantidad=int(cantidad3))
-	incl3.save()
+	lista_incluido2 = Incluido_Plan.objects.filter(plan=plantemp, tipo=tipo2)
+	if (len(lista_incluido2) == 0):
+	  incl3=Incluido_Plan(plan=plantemp, tipo=tipo3, cantidad=int(cantidad3))
+	  incl3.save()
+	else:
+	  plan1.delete()
+	  return render (request, 'incluirplanfalla.html')
       if (boole4):
-	incl4=Incluido_Plan(plan=plantemp, tipo=tipo4, cantidad=int(cantidad4))
-	incl4.save()
+	lista_incluido3 = Incluido_Plan.objects.filter(plan=plantemp, tipo=tipo2)
+	if (len(lista_incluido3) == 0):
+	  incl4=Incluido_Plan(plan=plantemp, tipo=tipo4, cantidad=int(cantidad4))
+	  incl4.save()
+	else:
+	  plan1.delete()
+	  return render (request, 'incluirplanfalla.html')
       if (boole5):
-	incl5=Incluido_Plan(plan=plantemp, tipo=tipo5, cantidad=int(cantidad5))
-	incl5.save()
+	lista_incluido4 = Incluido_Plan.objects.filter(plan=plantemp, tipo=tipo2)
+	if (len(lista_incluido4) == 0):
+	  incl5=Incluido_Plan(plan=plantemp, tipo=tipo5, cantidad=int(cantidad5))
+	  incl5.save()
+	else:
+	  plan1.delete()
+	  return render (request, 'incluirplanfalla.html')
       if (boole6):
-	incl6=Incluido_Plan(plan=plantemp, tipo=tipo6, cantidad=int(cantidad6))
-	incl6.save()
+	plan1.delete()
+	lista_incluido5 = Incluido_Plan.objects.filter(plan=plantemp, tipo=tipo2)
+	if (len(lista_incluido5) == 0):
+	  incl6=Incluido_Plan(plan=plantemp, tipo=tipo6, cantidad=int(cantidad6))
+	  incl6.save()
+	else:
+	  return render (request, 'incluirplanfalla.html')
       elif (not(((boole22) | (boole2) | (boole3) | (boole4) | (boole5) | (boole6)))):
 	return render (request, 'creacionplanfalla.html')
     else:
@@ -173,9 +235,13 @@ def insercion_planes(request):
     
   return render (request, 'operacionexitosa.html')
   
+  
+  
 #Da acceso a la pagina donde se provee informacion para insertar un servicio al sistema. 
 def insertar_servicios(request):
   return render (request, 'insertarservicios.html')
+ 
+ 
  
 #View que realmente procesa y almacena un servicio en el sistema.Analoga a insercion_plan
 def insercion_servicios(request):
@@ -220,10 +286,15 @@ def insercion_servicios(request):
       cantidad3=int(request.POST['cantidad3'])
       boole3=True
   
-  #Almaceno las instancias
-  servicio1=Servicio(name=nombre, costo=costo1)
-  servicio1.save()
-  
+  #verificar si el servicio ya existe
+  lista_servicios = Servicio.objects.filter(name=nombre)
+  if (len(lista_servicios) == 0):
+    #Almaceno las instancias
+    servicio1=Servicio(name=nombre, costo=costo1)
+    servicio1.save()
+  else:
+    return render (request, 'servicioexiste.html')
+    
   #Almaceno las instancias de incluidos, en caso de que la validacion
   #sea correcta.
   if (boole):
@@ -231,19 +302,33 @@ def insercion_servicios(request):
     if (boole1):
       incl1=Incluido_Servicio(servicio=servtemp, tipo=tipo1, cantidad=cantidad1)
       incl1.save()
-    elif (boole2):
-      incl1=Incluido_Servicio(servicio=servtemp, tipo=tipo2, cantidad=cantidad2)
-      incl1.save()
-    elif (boole3):
-      incl1=Incluido_Servicio(servicio=servtemp, tipo=tipo3, cantidad=cantidad3)
-      incl1.save()
+    if (boole2):
+      lista_incluidoserv2 = Incluido_Servicio.objects.filter(servicio=servtemp, tipo=tipo2)
+      if (len(lista_incluidoserv2) == 0):
+	incl2=Incluido_Servicio(servicio=servtemp, tipo=tipo2, cantidad=cantidad2)
+	incl2.save()
+      else:
+	servicio1.delete()
+	return render (request, 'serviciorepetidofalla.html')
+    if (boole3):
+      lista_incluidoserv3 = Incluido_Servicio.objects.filter(servicio=servtemp, tipo=tipo3)
+      if (len(lista_incluidoserv3) == 0):
+	incl3=Incluido_Servicio(servicio=servtemp, tipo=tipo3, cantidad=cantidad3)
+	incl3.save()
+      else:
+	servicio1.delete()
+	return render (request, 'serviciorepetidofalla.html')
   
   return render (request, 'operacionexitosa.html')
+ 
+ 
  
 #Da acceso a la pagina de inicio para gestionar productos
 def gestion_productos(request):
   return render (request, 'gestionproductos.html')
 
+  
+  
 #View que se encarga de procesar la solicitud de crear un nuevo producto
 def creacion_producto(request):
   nombre=request.POST['nombreproducto']
@@ -261,19 +346,28 @@ def creacion_producto(request):
       #Verifico que se este asociando el producto a un plan verdader, de ser
       #asi, almaceno.
       if (len(planes) == 1):
-	cliente1=Cliente.objects.get(identificador=int(idcliente))
-	plan1=Plan.objects.get(name=nombreplan)
-	producto=Producto(name=nombre, identificador=int(idproducto), cliente=cliente1, plan=plan1, saldo=0)
-	producto.save()
-	productos=Producto.objects.all()
-	return render (request, 'operacionexitosa.html', { 'prods' : productos})
+        cliente1=Cliente.objects.get(identificador=int(idcliente))
+        plan1=Plan.objects.get(name=nombreplan)
+        
+        lista_producto = Producto.objects.filter(identificador=int(idproducto))
+        if (len(lista_producto) == 0):
+	  #El producto no existe
+	  producto=Producto(name=nombre, identificador=int(idproducto), cliente=cliente1, plan=plan1, saldo=0)
+	  producto.save()
+	  productos=Producto.objects.all()
+	else:
+	  return render (request, 'productoexiste.html')
+	  
+        return render (request, 'operacionexitosa.html', { 'prods' : productos})
       else:
-	return render (request, 'falloproducto.html')
+        return render (request, 'falloproducto.html')
     else:
       return render (request, 'falloproducto.html')
   else:
     return render (request, 'falloproducto.html')
-
+    
+    
+      
 #View que  procesa el request de afiliar un producto a un servicio
 def afiliar_servicio(request):
   idproducto=request.POST['idproducto']
@@ -291,8 +385,13 @@ def afiliar_servicio(request):
 	#Listo con verificaciones, puedo proceder
 	producto1=Producto.objects.get(identificador=int(idproducto))
 	servicio1=Servicio.objects.get(name=nombreserv)
-	adiciona=Adiciona(producto=producto1, servicio=servicio1)
-	adiciona.save()
+	
+	lista_adiciona = Adiciona.objects.filter(producto=producto1, servicio=servicio1)
+	if (len(lista_adiciona) == 0):
+	  adiciona=Adiciona(producto=producto1, servicio=servicio1)
+	  adiciona.save()
+	else:
+	  return render (request, 'adicionaexiste.html')
 	return render (request, 'operacionexitosa.html')
       else:
 	return render (request, 'falloproductoserv.html')
@@ -301,10 +400,14 @@ def afiliar_servicio(request):
   else:
     return render (request, 'falloproductoserv.html')
   
+  
+  
 #Da acceso a la pagina para insertar consumos al sistema.
 def insertar_consumo(request):
   return render (request, 'insercionconsumos.html')
 
+  
+  
 #Procesa el request/form para agregar un consumo al sistema.
 def insercionde_consumo(request):
   idproducto1=request.POST['idproducto']
@@ -340,10 +443,14 @@ def insercionde_consumo(request):
   else:
     return render (request, 'falloconsumo.html')
 
+    
+    
 #Da acceso a la pagina de inicio para gestionar facturas en el sistema
 def gestion_facturas(request):
   return render (request, 'facturas.html')
 
+  
+  
 #View que maneja el request de facturar a un cliente en particular
 def facturar_cliente(request):
   idcliente1=request.POST['idcliente']
@@ -375,6 +482,8 @@ def facturar_cliente(request):
       #Retornamos al template la factura emitida y los productos para la que se emitio
       return render (request, 'exitofactura.html', { 'factura' : factura , 'lprods' : lprods })
 
+      
+      
 #Procesa el request de facturar TODOS los clientes de un tipo (pre-post)
 #para un periodo dado.
 def facturar_todo(request):
@@ -399,6 +508,8 @@ def facturar_todo(request):
       
   
   return render (request, 'todasfacturas.html', { 'facts': lfacturas })
+ 
+ 
  
 #View que procesa el request de un cliente de consultar su ultima factura
 def consultar_ultfactura(request):
@@ -430,10 +541,14 @@ def consultar_ultfactura(request):
   else:
     pass
  
+ 
+ 
 #Redireciona a la pagina de inicio para clientes
 def inicio_cliente(request):
   return render (request, 'iniciocliente.html')
 
+  
+  
 #Procesa el request de consultar saldo de sus productos
 #de un cliente prepago.
 def consultar_saldo(request):
