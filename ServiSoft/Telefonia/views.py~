@@ -434,9 +434,13 @@ def insercionde_consumo(request):
       #Resto el saldo, debo restarlo solo si el producto es prepago
       if (producto1.plan.ilimitado == 2):
 	producto1.saldo=producto1.saldo-int(costo1)
-      consumo=Consumo(producto=producto1, mes=int(mes1), dia=int(dia1),hora=hora1, tipo=tipo1, anio=anio1, costo=int(costo1))
-      consumo.save()
-      producto1.save()
+      lista_consumo = Consumo.objects.filter(producto=producto1, mes=int(mes1), dia=int(dia1),hora=hora1, tipo=tipo1, anio=anio1)
+      if (len(lista_consumo) == 0):
+	consumo=Consumo(producto=producto1, mes=int(mes1), dia=int(dia1),hora=hora1, tipo=tipo1, anio=anio1, costo=int(costo1))
+	consumo.save()
+	producto1.save()
+      else:
+	return render (request, 'consumoexiste.html' )
       return render (request, 'operacionexitosa.html')
     else:
       return render (request, 'falloconsumo.html')
@@ -477,7 +481,9 @@ def facturar_cliente(request):
 	montototal=facturarPrepago(cliente1)
 	factura=Factura(cliente=cliente1, monto=montototal[0], mes=mes1, anio=anio1)
 	lprods.append(montototal[1])
-      factura.save()
+      lista_factura = Factura.objects.filter(cliente=cliente1, monto=montototal[0], mes=mes1, anio=anio1)
+      if (len(lista_factura) == 0):	
+	factura.save()
       
       #Retornamos al template la factura emitida y los productos para la que se emitio
       return render (request, 'exitofactura.html', { 'factura' : factura , 'lprods' : lprods })
@@ -516,30 +522,35 @@ def consultar_ultfactura(request):
   cedrif=request.POST['cedrif']
   #Verficiar si esta vacio
   
-  #Verifico que sea un cliente existente
-  clientes=Cliente.objects.filter(identificador=int(cedrif))
-  if (len(clientes) > 0):
-    cliente=Cliente.objects.get(identificador=int(cedrif))
-    facturas=cliente.facturas.all()
-    #Verifico que el cliente tenga realmene facturas en el sistema
-    if (len(facturas) > 0):
-      maxanio=0
-      maxmes=0
-      #Obtengo el anioo/mes mas reciente de facturacion
-      for a in facturas:
-	if (a.anio >= maxanio):
-	  maxanio=a.anio
-	  if (a.mes >= maxmes):
-	    maxmes=a.mes
-	    
-      #Una vez obtenido esto, retorno dicha factura para ser imprimida en el template
-      factura_reciente=cliente.facturas.filter(anio=maxanio, mes=maxmes)
-      factura_reciente=factura_reciente[0]
-      return render (request, 'facturareciente.html', { 'factura': factura_reciente })
+  boole=  ((len(cedrif) <> 0))
+  if (boole):
+    
+    #Verifico que sea un cliente existente
+    clientes=Cliente.objects.filter(identificador=int(cedrif))
+    if (len(clientes) > 0):
+      cliente=Cliente.objects.get(identificador=int(cedrif))
+      facturas=cliente.facturas.all()
+      #Verifico que el cliente tenga realmene facturas en el sistema
+      if (len(facturas) > 0):
+	maxanio=0
+	maxmes=0
+	#Obtengo el anioo/mes mas reciente de facturacion
+	for a in facturas:
+	  if (a.anio >= maxanio):
+	    maxanio=a.anio
+	    if (a.mes >= maxmes):
+	      maxmes=a.mes
+	      
+	#Una vez obtenido esto, retorno dicha factura para ser imprimida en el template
+	factura_reciente=cliente.facturas.filter(anio=maxanio, mes=maxmes)
+	factura_reciente=factura_reciente[0]
+	return render (request, 'facturareciente.html', { 'factura': factura_reciente })
+      else:
+	pass
     else:
       pass
   else:
-    pass
+    return render (request, 'consultarfalla.html')
  
  
  
@@ -554,18 +565,20 @@ def inicio_cliente(request):
 def consultar_saldo(request):
   cedrif=request.POST['cedrif']
   #Verificar si esta vacio
-  
-  #Verifico que sea un cliente existente, de ser asi,
-  #devuelvo lo necesario para que el template pueda
-  #imprimir lo consultado
-  clientes=Cliente.objects.filter(identificador=int(cedrif))
-  if (len(clientes) > 0):
-    cliente=Cliente.objects.get(identificador=int(cedrif))
-    productos=cliente.productos.all()
-    return render (request, 'consultasaldo.html', { 'productos' : productos })
+  boole=  ((len(cedrif) <> 0))
+  if (boole):
+    #Verifico que sea un cliente existente, de ser asi,
+    #devuelvo lo necesario para que el template pueda
+    #imprimir lo consultado
+    clientes=Cliente.objects.filter(identificador=int(cedrif))
+    if (len(clientes) > 0):
+      cliente=Cliente.objects.get(identificador=int(cedrif))
+      productos=cliente.productos.all()
+      return render (request, 'consultasaldo.html', { 'productos' : productos })
+    else:
+      pass
   else:
-    pass
-    
+    return render (request, 'consultarfalla.html')
     
   
   
