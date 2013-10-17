@@ -1,18 +1,4 @@
 from Telefonia.models import Usuario,Cliente, Plan, Incluido_Plan, Servicio, Incluido_Servicio, Producto, Adiciona, Consumo, Factura
-#from nose.tools import assert_not_equal
-from django.http import HttpResponse
-import datetime
-from django.template import Context
-from django.template.loader import get_template
-from django.shortcuts import render
-from auxiliar import facturarPostpago, facturarPrepago
-
-"""
-This file demonstrates writing tests using the unittest module. These will pass
-when you run "manage.py test".
-
-Replace this with more appropriate tests for your application.
-"""
 
 from django.test import TestCase
 
