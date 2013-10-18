@@ -15,8 +15,8 @@
 <form action="/creacionproducto/" method="post">
 {% csrf_token %}
 	<p><div><label>Nombre del Producto</label><input type="text" name="nombreproducto"></div></p>
-	<p><div><label>Identificador del Producto</label><input type="text" name="identificador"></div></p>
-	<p><div><label>Identificador del Cliente</label><input type="text" name="identificadorcliente"></div></p>
+	<p><div><label>Identificador del Producto</label><input type="number" name="identificador"></div></p>
+	<p><div><label>Identificador del Cliente</label><input type="number" name="identificadorcliente"></div></p>
 	<p><div><label>Nombre del plan al que se afiliara</label><input type="text" name="nombreplan"></div></p>
     <p> <input type="submit" class="button" value="Crear"></p>
 </form>
@@ -25,7 +25,7 @@
 <h3> <li> Afiliar producto a servicio extra </li> </h3>
 <form action="/afiliarservicio/" method="post">
 {% csrf_token %}
-	<p><div><label>Id del producto a afiliar</label><input type="text" name="idproducto"></div></p>
+	<p><div><label>Id del producto a afiliar</label><input type="number" name="idproducto"></div></p>
 	<p><div><label>Nombre del servicio</label> <input type="text" name="nomservicio"></div></p>
     <p> <input type="submit" class="button" value="Afiliar"></p>
 </form>
