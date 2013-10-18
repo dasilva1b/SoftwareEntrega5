@@ -1,38 +1,31 @@
 <html>
-
-<title> Inicio administrador: ServiSoft </title>
-
-<body>
-
-<h1 style="color: #088A85"> Inicio Administrador: ServiSoft </h1>
-
-<hr> </hr>
-<h3> Administracion de Telefonia </h3>
-<p> Bienvenido </p>
-
-<h4> Gestiones administrativas </h4>
-<ol>
-  <li> <a href="/gestionclientes/"> Gestionar clientes </a> </li>
-  <li> <a href="/gestionproductos/"> Gestion de productos/planes/servicios </a> </li>
-  <li> <a href="/gestionfacturas/"> Gestion de facturas </a> </li>
-</ol>
-
-<h4> Inserciones al sistema </h4>
-<ol>
-  <li> <a href="/insertarplanes/"> Insertar Planes </a> </li>
-  <li> <a href="/insertarservicios/"> Insertar Servicios extra  </a> </li>
-  <li> <a href="/insertarconsumos/"> Insertar Consumo  </a> </li>
-</ol>
-
-<a href="/"> Volver </a>
-
-
-
-
-</body>
-<hr></hr>
-
-
-
-
+    <head>
+        <meta charset='utf-8'>
+        <link rel='stylesheet' href='{{STATIC_URL}}css/base.css'>
+        {% block style_css %}{% endblock %}
+    </head>
+    <title> Inicio administrador </title>
+    <body>
+        <div id="banner-wrapper">
+            <div id="banner" class="container"></div>
+        </div>
+        <h1> Inicio Administrador </h1>
+        <hr> </hr>
+        <h3> Administracion de Telefonia </h3>
+        <p> Bienvenido </p>
+        <h4> Gestiones administrativas </h4>
+        <ol>
+            <li> <a href="/gestionclientes/"> Gestionar clientes </a> </li>
+            <li> <a href="/gestionproductos/"> Gestion de productos/planes/servicios </a> </li>
+            <li> <a href="/gestionfacturas/"> Gestion de facturas </a> </li>
+        </ol>
+        <h4> Inserciones al sistema </h4>
+        <ol>
+            <li> <a href="/insertarplanes/"> Insertar Planes </a> </li>
+            <li> <a href="/insertarservicios/"> Insertar Servicios extra  </a> </li>
+            <li> <a href="/insertarconsumos/"> Insertar Consumo  </a> </li>
+        </ol>
+        <a href="/"> Volver </a>
+    </body>
+    <hr></hr>
 </html>

@@ -1,19 +1,23 @@
 <html>
+<head>
+  <meta charset='utf-8'>
+  <link rel='stylesheet' href='{{STATIC_URL}}css/base.css'>
+  {% block style_css %}{% endblock %}
+</head>
+<title> Gestion clientes </title>
 
-<title> Gestion clientes: ServiSoft </title>
+<body><div id="banner-wrapper"><div id="banner" class="container"></div></div>
 
-<body>
-
-<h1 style="color: #088A85"> Gestion clientes: ServiSoft </h1>
+<h1> Gestion clientes </h1>
 
 <hr> </hr>
 <h3> <li> Creacion de cliente </li> </h3>
 <form action="/creacioncliente/" method="post">
 {% csrf_token %}
-    <p> Nombre <input type="text" name="nombre"></p>
-    <p> Direccion <input type="text" name="direccion"></p>
-    <p> Identificador (cedula/rif) <input type="text" name="identificador"> </p>
-    <p> <input type="submit" value="Crear"></p>
+    <p><div><label> Nombre </label><input type="text" name="nombre"> </div></p>
+    <p><div><label> Direccion </label><input type="text" name="direccion"> </div></p>
+    <p><div><label> Identificador (cedula/rif) </label><input type="number" name="identificador">  </div></p>
+    <p> <input type="submit" class="button" value="Crear"></p>
 </form>
 
 </br>
@@ -23,15 +27,15 @@
     e introduzca el nuevo valor. </p>
 <form action="/modificacioncliente/" method="post">
 {% csrf_token %}
-    <p> Identificador (cedula/rif) <input type="text" name="identificador"> </p>
-    <p> Campo a modificar 
-	<select name="campo_modificar">
+    <p><div><label> Identificador (cedula/rif) </label><input type="number" name="identificador"> </div></p>
+    <p><div><label> Campo a modificar  </div></label>
+	<select class="combo" name="campo_modificar">
 	  <option value="direccion"> Direccion</option>
 	  <option value="nombre"> Nombre </option>
 	</select>
-      </p>
-    <p> Nuevo valor <input type="text" name="modificado"> </p>
-    <p> <input type="submit" value="Modificar"></p>
+       </div></p>
+    <p><div><label> Nuevo valor </label><input type="text" name="modificado">  </div></p>
+    <p> <input type="submit" class="button" value="Modificar"></p>
 </form>
 
 <h3> <li> <a href="/listarclientes/"> Listar todos los clientes </a> </li> <h3>

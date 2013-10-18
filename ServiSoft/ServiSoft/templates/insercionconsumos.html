@@ -1,18 +1,22 @@
 <html>
+<head>
+  <meta charset='utf-8'>
+  <link rel='stylesheet' href='{{STATIC_URL}}css/base.css'>
+  {% block style_css %}{% endblock %}
+</head>
+<title> Insertar Consumo </title>
 
-<title> Insertar Consumo: ServiSoft </title>
+<body><div id="banner-wrapper"><div id="banner" class="container"></div></div>
 
-<body>
-
-<h1 style="color: #088A85"> Insertar Consumo: ServiSoft </h1>
+<h1> Insertar Consumo </h1>
 
 <hr> </hr>
 <h3> <li> Insertar Consumo</li> </h3>
 <form action="/inserciondeconsumo/" method="post">
 {% csrf_token %}
-    <p> ID del producto <input type="text" name="idproducto"></p>
+    <p> ID del producto <input type="number" name="idproducto"></p>
     <p> Mes 
-      <select name="mes">
+      <select class="combo" name="mes">
 	<option value="1"> Enero </option>
 	<option value="2"> Febrero </option>
 	<option value="3"> Marzo </option>
@@ -26,12 +30,12 @@
 	<option value="11"> Noviembre </option>
 	<option value="12"> Diciembre </option>
       </select> </p>
-    <p> Anio <input type="number" name="anio"> </p>
-    <p> Dia <input type="number" name="dia"></p>
-    <p> Hora <input type="text" name="hora"> </p>
-    <p> Costo <input type="number" name="costo"> </p>
-    <p> Tipo <input type="text" name="tipo"> </p>
-    <p> <input type="submit" value="Insertar"></p>
+    <p>  <div><label>Anio</label>  <input type="number" name="anio"> </div></p>
+    <p>  <div><label>Dia</label>   <input type="number" name="dia"></div></p>
+    <p>  <div><label>Hora</label>  <input type="text" name="hora"> </div></p>
+    <p>  <div><label>Costo</label> <input type="number" name="costo"> </div></p>
+    <p>  <div><label>Tipo</label>  <input type="text" name="tipo"> </div></p>
+    <p> <input type="submit" class="button" value="Insertar"></p>
 </form>
 
 </br>

@@ -1,24 +1,19 @@
 <html>
-
-<title> Creacion Producto falla: ServiSoft </title>
-
-<body>
-
-<h1 style="color: #088A85"> Creacion Producto falla: ServiSoft </h1>
-
-<hr> </hr>
-<p> La creación del producto ha fallado porque el mismo ya existe
- 
-</p>
-<a href="/inicioadmin/"> Volver </a>
-
-
-
-
-</body>
-<hr></hr>
-
-
-
-
+    <head>
+        <meta charset='utf-8'>
+        <link rel='stylesheet' href='{{STATIC_URL}}css/base.css'>
+        {% block style_css %}{% endblock %}
+    </head>
+    <title> Creacion Producto falla </title>
+    <body>
+        <div id="banner-wrapper">
+            <div id="banner" class="container"></div>
+        </div>
+        <h1> Creacion Producto falla </h1>
+        <hr> </hr>
+        <p> La creación del producto ha fallado porque el mismo ya existe
+        </p>
+        <a href="/inicioadmin/"> Volver </a>
+    </body>
+    <hr></hr>
 </html>

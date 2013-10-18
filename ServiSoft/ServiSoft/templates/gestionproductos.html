@@ -1,29 +1,33 @@
 <html>
+<head>
+  <meta charset='utf-8'>
+  <link rel='stylesheet' href='{{STATIC_URL}}css/base.css'>
+  {% block style_css %}{% endblock %}
+</head>
+<title> Gestion productos </title>
 
-<title> Gestion productos: ServiSoft </title>
+<body><div id="banner-wrapper"><div id="banner" class="container"></div></div>
 
-<body>
-
-<h1 style="color: #088A85"> Gestion productos: ServiSoft </h1>
+<h1> Gestion productos </h1>
 
 <hr> </hr>
 <h3> <li> Creacion de producto/afiliarlo a un plan </li> </h3>
 <form action="/creacionproducto/" method="post">
 {% csrf_token %}
-    <p> Nombre del producto <input type="text" name="nombreproducto"></p>
-    <p> Identificador del producto <input type="text" name="identificador"></p>
-    <p> Identificador del cliente <input type="text" name="identificadorcliente"> </p>
-    <p> Nombre del plan al que se afiliara <input type="text" name="nombreplan"> </p>
-    <p> <input type="submit" value="Crear"></p>
+	<p><div><label>Nombre del Producto</label><input type="text" name="nombreproducto"></div></p>
+	<p><div><label>Identificador del Producto</label><input type="text" name="identificador"></div></p>
+	<p><div><label>Identificador del Cliente</label><input type="text" name="identificadorcliente"></div></p>
+	<p><div><label>Nombre del plan al que se afiliara</label><input type="text" name="nombreplan"></div></p>
+    <p> <input type="submit" class="button" value="Crear"></p>
 </form>
 
 </br>
 <h3> <li> Afiliar producto a servicio extra </li> </h3>
 <form action="/afiliarservicio/" method="post">
 {% csrf_token %}
-    <p> Id del producto a afiliar <input type="text" name="idproducto"></p>
-    <p> Nombre del servicio <input type="text" name="nomservicio"></p>
-    <p> <input type="submit" value="Afiliar"></p>
+	<p><div><label>Id del producto a afiliar</label><input type="text" name="idproducto"></div></p>
+	<p><div><label>Nombre del servicio</label> <input type="text" name="nomservicio"></div></p>
+    <p> <input type="submit" class="button" value="Afiliar"></p>
 </form>
 
 

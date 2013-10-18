@@ -1,13 +1,17 @@
 <html>
+<head>
+  <meta charset='utf-8'>
+  <link rel='stylesheet' href='{{STATIC_URL}}css/base.css'>
+  {% block style_css %}{% endblock %}
+</head>
+<title> Listado de planes </title>
 
-<title> Listado de planes: ServiSoft </title>
+<body><div id="banner-wrapper"><div id="banner" class="container"></div></div>
 
-<body>
-
-<h1 style="color: #088A85"> Listado de planes: ServiSoft </h1>
+<h1> Listado de planes </h1>
 
 <hr> </hr>
-<h3> Planes de la compañia en el sistema </h3>
+<h3> Planes de la companiia en el sistema </h3>
   <ol>
         <li>{{ plan }}</li>
 	{% for inc in incluidos %}

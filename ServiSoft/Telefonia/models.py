@@ -21,7 +21,7 @@ class Cliente(models.Model):
   identificador=models.IntegerField()
   
   def __unicode__(self):
-    return "Nombre:"+self.name+" Direccion:"+self.direccion
+    return 'Nombre: "%s" Direccion: "%s"'%(self.name,self.direccion)
 
 
 #Clase representante de un plan de servicios de la compania.
@@ -34,7 +34,7 @@ class Plan(models.Model):
   renta=models.IntegerField()
   
   def __unicode__(self):
-    return "Plan:"+self.name+" Renta:"+str(self.renta)
+    return 'Plan: "%s" Renta: %d'%(self.name,self.renta)
     
     
 #Clase usada para representar que se incluye en un plan dado.
@@ -46,7 +46,7 @@ class Incluido_Plan(models.Model):
   cantidad=models.IntegerField()
   
   def __unicode__(self):
-    return "Incluido:"+self.tipo+"cantidad:"+str(self.cantidad)
+    return 'Incluido:"%s" Cantidad: %d'%(self.tipo,self.cantidad)
 
 #Clase que representa un servicio adicional, paquete o afin que
 #ofrece la compania y que se puede asociar a algun producto
@@ -55,7 +55,7 @@ class Servicio(models.Model):
   costo=models.IntegerField()
   
   def __unicode__(self):
-    return "Servicio:"+self.name+" Costo:"+str(self.costo)
+    return 'Servicio: "%s" Costo: %d'%(self.name,self.costo)
     
 #Clase cuya funcion es analoga al Incluido_Plan, solo que para servicios       
 class Incluido_Servicio(models.Model):
@@ -64,7 +64,7 @@ class Incluido_Servicio(models.Model):
   cantidad=models.IntegerField()
   
   def __unicode__(self):
-     return "Incluido:"+self.tipo+"cantidad:"+str(self.cantidad)
+     return 'Incluido: "%s" Cantidad: %d'%(self.tipo,self.cantidad)
 
 #Clase que representa un producto de la compania. Dicho producto
 #pertenece a algun cliente, tiene un nombre y un identificador
@@ -77,7 +77,7 @@ class Producto(models.Model):
   saldo=models.IntegerField()
   
   def __unicode__(self):
-    return "Producto:"+self.name+" ID:"+str(self.identificador)
+    return 'Producto: "%s" ID: %d'%(self.name,self.identificador)
  
 #Clase que representa la asociacion de un producto y un servicio extra.
 #El producto adiciona un servicio.
@@ -101,7 +101,7 @@ class Consumo(models.Model):
   costo=models.IntegerField()
   
   def __unicode__(self):
-    return "Consumo de costo:"+str(self.costo)+" a las: "+self.hora
+    return "Consumo de costo: %d  a las: %s"%(self.costo,+self.hora)
 
 #Clase que representa una factura en el sistema.La factura se hizo
 #para un cliente, en un mes y anio dado y por un monto especifico.
@@ -112,7 +112,7 @@ class Factura(models.Model):
   anio=models.IntegerField()
   
   def __unicode__(self):
-    return "Factura del mes :"+str(self.mes)+", dia:"+str(self.anio)+"Monto total:"+str(self.monto)+"del cliente "+str(self.cliente)
+    return "Factura del mes: %d, anio: %d Monto total: %d del Cliente: %s"%(self.mes,self.anio,self.monto,self.cliente)
         
     
   

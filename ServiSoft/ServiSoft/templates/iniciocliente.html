@@ -1,10 +1,14 @@
 <html>
+<head>
+  <meta charset='utf-8'>
+  <link rel='stylesheet' href='{{STATIC_URL}}css/base.css'>
+  {% block style_css %}{% endblock %}
+</head>
+<title> Inicio cliente </title>
 
-<title> Inicio cliente: ServiSoft </title>
+<body><div id="banner-wrapper"><div id="banner" class="container"></div></div>
 
-<body>
-
-<h1 style="color: #088A85"> Inicio cliente: ServiSoft </h1>
+<h1> Inicio cliente </h1>
 
 <hr> </hr>
 <p> Bienvenido </p>
@@ -14,15 +18,15 @@
   <li> Consultar saldo de productos  </li>
   <form action="/consultarsaldo/" method="post">
     {% csrf_token %}
-    <p> Cedulra/rif<input type="text" name="cedrif"></p>
-    <p> <input type="submit" value="Consultar"></p>
+    <p> Cedulra/rif<input type="number" name="cedrif"></p>
+    <p> <input type="submit" class="button" value="Consultar"></p>
   </form>
 
   <li> Consultar ultima/s factura/s  </li>
   <form action="/consultarultfactura/" method="post">
     {% csrf_token %}
-    <p> Cedula/rif<input type="text" name="cedrif"></p>
-    <p> <input type="submit" value="Consultar"></p>
+    <p> Cedula/rif<input type="number" name="cedrif"></p>
+    <p> <input type="submit" class="button" value="Consultar"></p>
   </form>
 </ol>
 

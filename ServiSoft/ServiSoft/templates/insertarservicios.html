@@ -1,33 +1,37 @@
 <html>
+<head>
+  <meta charset='utf-8'>
+  <link rel='stylesheet' href='{{STATIC_URL}}css/base.css'>
+  {% block style_css %}{% endblock %}
+</head>
+<title> Insertar Servicios </title>
 
-<title> Insertar Servicios: ServiSoft </title>
+<body><div id="banner-wrapper"><div id="banner" class="container"></div></div>
 
-<body>
-
-<h1 style="color: #088A85"> Insertar Servicios: ServiSoft </h1>
+<h1> Insertar Servicios </h1>
 
 <hr> </hr>
 <h3> <li> Insertar Servicio</li> </h3>
 <form action="/insercionservicios/" method="post">
 {% csrf_token %}
-    <p> Nombre <input type="text" name="nombre"></p>
-    <p> Costo <input type="number" name="costo"> </p>
-    <p> Incluye algo el servicio: 
-	<select name="incluye">
+    <p> <div><label>Nombre </label><input type="text" name="nombre"></div></p>
+    <p> <div><label>Costo </label><input type="number" name="costo"> </div></p>
+    <p> <div><label>Incluye algo el servicio: </label>
+	<select class="combo" name="incluye">
 	  <option value="0"> No </option>
 	  <option value="1"> Si </option>
-	</select>
+	</select></div>
     </p>
     <h4> Que incluye el servicio: </h4>
-    <p> --Lo que se incluye <input type="text" name="tipo"> </p>
-    <p> --Cantidad que se incluye <input type="text" name="cantidad"> </p>
+    <p> <div><label>--Lo que se incluye </label><input type="text" name="tipo"> </div></p>
+    <p> <div><label>--Cantidad que se incluye </label><input type="number" name="cantidad"></div> </p>
     </br>
-    <p> --Lo que se incluye <input type="text" name="tipo2"> </p>
-    <p> --Cantidad que se incluye <input type="text" name="cantidad2"> </p>
+    <p> <div><label>--Lo que se incluye </label><input type="text" name="tipo2"> </p>
+    <p> <div><label>--Cantidad que se incluye </label><input type="number" name="cantidad2"> </div></p>
     </br>
-    <p> --Lo que se incluye <input type="text" name="tipo3"> </p>
-    <p> --Cantidad que se incluye <input type="text" name="cantidad3"> </p>
-    <p> <input type="submit" value="Insertar"></p>
+    <p> <div><label>--Lo que se incluye </label><input type="text" name="tipo3"> </p>
+    <p> <div><label>--Cantidad que se incluye </label><input type="number" name="cantidad3"> </div></p>
+    <p> <input type="submit" class="button" value="Insertar"></p>
 </form>
 
 </br>
