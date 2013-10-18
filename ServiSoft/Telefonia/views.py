@@ -75,7 +75,7 @@ def creacion_cliente(request):
   boole= ((len(nombre) <> 0) & (len(direccion1) <> 0) & (len (str(identificador1)) <> 0))
   if (boole):
     #Verifico si el cliente ya existe
-    lista_clientes=Cliente.objects.filter(name=nombre, identificador=identificador1)
+    lista_clientes=Cliente.objects.filter(identificador=identificador1)
     if (len(lista_clientes) == 0):
       #EL cliene no existe
       cliente=Cliente(name=nombre, direccion=direccion1, identificador=identificador1)
@@ -195,7 +195,7 @@ def insercion_planes(request):
 	  plan1.delete()
 	  return render (request, 'incluirplanfalla.html')
       if (boole3):
-	lista_incluido2 = Incluido_Plan.objects.filter(plan=plantemp, tipo=tipo2)
+	lista_incluido2 = Incluido_Plan.objects.filter(plan=plantemp, tipo=tipo3)
 	if (len(lista_incluido2) == 0):
 	  incl3=Incluido_Plan(plan=plantemp, tipo=tipo3, cantidad=int(cantidad3))
 	  incl3.save()
@@ -203,7 +203,7 @@ def insercion_planes(request):
 	  plan1.delete()
 	  return render (request, 'incluirplanfalla.html')
       if (boole4):
-	lista_incluido3 = Incluido_Plan.objects.filter(plan=plantemp, tipo=tipo2)
+	lista_incluido3 = Incluido_Plan.objects.filter(plan=plantemp, tipo=tipo4)
 	if (len(lista_incluido3) == 0):
 	  incl4=Incluido_Plan(plan=plantemp, tipo=tipo4, cantidad=int(cantidad4))
 	  incl4.save()
@@ -211,7 +211,7 @@ def insercion_planes(request):
 	  plan1.delete()
 	  return render (request, 'incluirplanfalla.html')
       if (boole5):
-	lista_incluido4 = Incluido_Plan.objects.filter(plan=plantemp, tipo=tipo2)
+	lista_incluido4 = Incluido_Plan.objects.filter(plan=plantemp, tipo=tipo5)
 	if (len(lista_incluido4) == 0):
 	  incl5=Incluido_Plan(plan=plantemp, tipo=tipo5, cantidad=int(cantidad5))
 	  incl5.save()
@@ -220,7 +220,7 @@ def insercion_planes(request):
 	  return render (request, 'incluirplanfalla.html')
       if (boole6):
 	plan1.delete()
-	lista_incluido5 = Incluido_Plan.objects.filter(plan=plantemp, tipo=tipo2)
+	lista_incluido5 = Incluido_Plan.objects.filter(plan=plantemp, tipo=tipo6)
 	if (len(lista_incluido5) == 0):
 	  incl6=Incluido_Plan(plan=plantemp, tipo=tipo6, cantidad=int(cantidad6))
 	  incl6.save()
@@ -229,6 +229,7 @@ def insercion_planes(request):
       elif (not(((boole22) | (boole2) | (boole3) | (boole4) | (boole5) | (boole6)))):
 	return render (request, 'creacionplanfalla.html')
     else:
+      plan1.delete()
       return render (request, 'creacionplanfalla.html')
   else:
     return render (request, 'creacionplanfalla.html')
