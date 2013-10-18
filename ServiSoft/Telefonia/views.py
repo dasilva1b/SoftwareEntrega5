@@ -503,14 +503,18 @@ def facturar_todo(request):
     if (tipofact1 == 'post'):
       montototal=facturarPostpago(a,mes1,anio1)
       factura=Factura(cliente=a, monto=montototal[0], mes=mes1, anio=anio1)
+      fcs=Factura.objects.filter(cliente=a, mes=mes1, anio=anio1)
       if (montototal[0]<>0):
-	factura.save()
+	if (len(fcs) == 0):
+	  factura.save()
 	lfacturas.append(factura)
     else:
       montototal=facturarPrepago(a)
       factura=Factura(cliente=a, monto=montototal[0], mes=mes1, anio=anio1)
+      fcs1=Factura.objects.filter(cliente=a, mes=mes1, anio=anio1)
       if (montototal[0] <>0):
-	factura.save()
+	if (len(fcs1) == 0):
+	  factura.save()
 	lfacturas.append(factura)
       
   
